@@ -23,7 +23,6 @@ function datefilter(table) {
 var tbody = d3.select("#ufo-table>tbody");
 
 
-// YOUR CODE HERE!
 
 function buildtable() {
     tbody.html('');
@@ -45,8 +44,9 @@ function buildtable() {
 };
 
 var datechange = d3.select("#datetime")
-
+button = d3.select('#filter-btn')
 datechange.on("change", buildtable);
+button.on("click", buildtable)
 //console.log(table_date_filtered)
 //buildtable(table_date_filtered)
 
