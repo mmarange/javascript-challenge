@@ -2,36 +2,39 @@
 var tableData = data;
 
 
-//var date = '1/10/2010'
+//var date = '1/10/2010' when hard coding
 
-var City = ""
-var State = ""
-var Country = ""
-var Duration = ""
-
-
-function datefilter(table) {
+// var City = ""
+// var State = ""
+// var Country = ""
+// var Duration = ""
+var tbody = d3.select("#ufo-table>tbody");
+//Create boolean function to use with filter function
+function datefilter() {
+    
     var datechange = d3.select("#datetime")
     var date = datechange.property("value")
-    console.log(datechange.property("value"))
-    return table.datetime == date;
-   
+    tbody.html(''); // 
+    //console.log(datechange.property("value"))
+    table_date_filtered = tableData.filter(d => d.datetime == date );
+ buildtable(table_date_filtered)
 };
+//console.log(datefilter(tableData))
+
+//identify tbody
 
 
 
-var tbody = d3.select("#ufo-table>tbody");
+//create a buildtable function with a filter function imbedded in it.
+function buildtable(table) {
+   
+    
+   
+    console.log(table)
 
-
-
-function buildtable() {
-    tbody.html('');
-    table_date_filtered = tableData.filter(datefilter);
-    console.log(table_date_filtered)
-    table_date_filtered.forEach((item) => {
+    // appending data into table
+    table.forEach((item) => {
        
-    
-    
     var row = tbody.append("tr");
     row.append("td").text(item.datetime);
     row.append("td").text(item.city);
@@ -42,11 +45,13 @@ function buildtable() {
     row.append("td").text(item.comments);
     })
 };
+buildtable(tableData);
 
+// listening to date form and button
 var datechange = d3.select("#datetime")
 button = d3.select('#filter-btn')
-datechange.on("change", buildtable);
-button.on("click", buildtable)
+datechange.on("change", datefilter);
+button.on("click", datefilter);
 //console.log(table_date_filtered)
 //buildtable(table_date_filtered)
 
